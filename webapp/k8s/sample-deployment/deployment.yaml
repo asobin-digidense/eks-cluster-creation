@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: samplewebapp
+  namespace: project-b
+  labels:
+    app: samplewebapp
+    environment: dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: samplewebapp
+      environment: dev
+  template:
+   metadata:
+    labels:
+      app: samplewebapp
+      environment: dev
+   spec:
+      containers:
+        - name: testcon
+          image: 088310115913.dkr.ecr.us-east-1.amazonaws.com/webapp:v1.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP
+              name: webport
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
